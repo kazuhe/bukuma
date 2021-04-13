@@ -18,19 +18,17 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  async asyncData({ app, route }) {
-    const user = await app.$axios.$get(
-      `https://qiita.com/api/v2/users/${route.params.users}`
-    )
-
-    const items = await app.$axios.$get(
-      `https://qiita.com/api/v2/items?query=user:${route.params.users}`
-    )
-
-    return {
-      user,
-      items
+  async asyncData({ route, store, redirect }) {
+    if (store.getters.users[route.params.users]) {
+      return
+    }
+    try {
+      await store.dispatch('fetchUserInfo', { id: route.params.users })
+    } catch (e) {
+      redirect('/')
     }
   },
 
@@ -44,6 +42,17 @@ export default {
     return {
       title: `${this.user.id}の記事一覧`
     }
+  },
+
+  computed: {
+    user() {
+      return this.users[this.$route.params.users]
+    },
+    items() {
+      return this.userItems[this.$route.params.users] || []
+    },
+
+    ...mapGetters(['users', 'userItems'])
   }
 }
 </script>
