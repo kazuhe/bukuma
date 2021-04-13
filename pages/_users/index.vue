@@ -38,6 +38,12 @@ export default {
     return {
       username: this.$route.params.users
     }
+  },
+
+  head() {
+    return {
+      title: `${this.user.id}の記事一覧`
+    }
   }
 }
 </script>

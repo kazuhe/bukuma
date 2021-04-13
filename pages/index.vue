@@ -28,6 +28,12 @@ export default {
     }
   },
 
+  head() {
+    return {
+      title: 'HOME'
+    }
+  },
+
   async mounted() {
     console.log(
       JSON.stringify(
