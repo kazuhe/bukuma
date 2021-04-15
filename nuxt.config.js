@@ -3,7 +3,7 @@ require('dotenv').config()
 const title = 'bukuma ブックマーク管理App'
 
 export default {
-  // グローバルヘッダ
+  // Global head
   head: {
     title,
     titleTemplate: `%s | ${title}`,
@@ -22,6 +22,9 @@ export default {
 
   // componentsディレクトリのファイルを自動インポート
   components: true,
+
+  // Global CSS
+  css: ['~/assets/styles/reset', '~/assets/styles/variables'],
 
   // Appマウント前にロード
   plugins: ['~/plugins/axios.js'],
