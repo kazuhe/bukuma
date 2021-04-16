@@ -42,5 +42,10 @@ export default {
     '@nuxtjs/axios',
     // https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv'
-  ]
+  ],
+
+  // デフォルトの Vue Router の設定を上書き
+  router: {
+    middleware: ['auth']
+  }
 }

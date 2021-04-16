@@ -2,8 +2,9 @@
   <div class="navigation">
     <div class="navigation_inner">
       <ul>
-        <li><nuxt-link to="/">home</nuxt-link></li>
-        <li><nuxt-link to="/">home</nuxt-link></li>
+        <li><nuxt-link to="/">Home</nuxt-link></li>
+        <li><nuxt-link to="/login">Login</nuxt-link></li>
+        <li><nuxt-link to="/authed">認証が必要なページ</nuxt-link></li>
       </ul>
     </div>
   </div>
