@@ -27,7 +27,7 @@ export default {
   css: ['~/assets/styles/reset', '~/assets/styles/variables'],
 
   // Appマウント前にロード
-  plugins: ['~/plugins/axios.js'],
+  plugins: ['~/plugins/axios', '~/plugins/logger'],
 
   // build用のモジュール
   buildModules: [
