@@ -3,6 +3,9 @@ require('dotenv').config()
 const title = 'bukuma ブックマーク管理App'
 
 export default {
+  // Nuxt.js アプリケーションのソースディレクトリ
+  srcDir: 'src/',
+
   // Global head
   head: {
     title,
