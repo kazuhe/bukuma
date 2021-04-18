@@ -22,11 +22,13 @@ import { mapGetters } from 'vuex'
 
 export default {
   async asyncData({ route, store, redirect }) {
-    if (store.getters.users[route.params.users]) {
+    if (store.getters['users/list'][route.params.users]) {
       return
     }
     try {
-      await store.dispatch('fetchUserInfo', { id: route.params.users })
+      await store.dispatch('users/fetchUser', {
+        id: route.params.users
+      })
     } catch (e) {
       redirect('/')
     }
@@ -52,7 +54,10 @@ export default {
       return this.userItems[this.$route.params.users] || []
     },
 
-    ...mapGetters(['users', 'userItems'])
+    ...mapGetters({
+      users: 'users/list',
+      userItems: 'users/items'
+    })
   }
 }
 </script>
