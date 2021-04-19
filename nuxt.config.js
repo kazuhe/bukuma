@@ -20,14 +20,19 @@ export default {
 
   // 環境変数の定義
   env: {
-    ACCESS_TOKEN: process.env.ACCESS_TOKEN
+    ACCESS_TOKEN: process.env.ACCESS_TOKEN,
+    API_URL: process.env.API_URL
   },
 
   // componentsディレクトリのファイルを自動インポート
   components: true,
 
   // Global CSS
-  css: ['~/assets/styles/reset', '~/assets/styles/variables'],
+  css: [
+    '~/assets/styles/reset',
+    '~/assets/styles/variables',
+    '~/assets/styles/common'
+  ],
 
   // Appマウント前にロード
   plugins: ['~/plugins/axios', '~/plugins/logger'],
@@ -50,5 +55,10 @@ export default {
   // デフォルトの Vue Router の設定を上書き
   router: {
     middleware: ['auth']
+  },
+
+  // axiosの設定
+  axios: {
+    baseURL: process.env.API_URL
   }
 }
