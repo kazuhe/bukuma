@@ -1,21 +1,25 @@
 import Cookies from 'universal-cookie'
 
-export default ({ req, route, redirect }) => {
-  console.log(route.path)
-  if (['/'].includes(route.path)) {
+export default ({ req, store }) => {
+  if (process.client) {
     return
   }
 
-  const cookies = req ? new Cookies(req.headers.cookies) : new Cookies()
-  const credential = cookies.get('credential')
+  // if (['/'].includes(route.path)) {
+  //   return
+  // }
 
-  if (credential && route.path === '/login') {
-    console.log('credential && route.path === /login')
-    return redirect('/')
+  const cookies = new Cookies(req.headers.cookies)
+  const user = cookies.get('user')
+
+  if (user && user.id) {
+    const { id, likes } = user
+    store.commit('setUser', { user: { id, likes } })
+    console.log('auth.js ~~ setUser')
   }
 
-  if (!credential && route.path !== '/login') {
-    console.log('!credential && route.path === /login')
-    return redirect('/login')
-  }
+  // if (!credential && route.path !== '/login') {
+  //   console.log('!credential && route.path === /login')
+  //   return redirect('/login')
+  // }
 }

@@ -1,14 +1,22 @@
 export const state = () => ({
-  items: []
+  items: [],
+  isLoggedIn: false,
+  user: null
 })
 
 export const getters = {
-  items: state => state.items
+  items: state => state.items,
+  isLoggedIn: state => state.isLoggedIn,
+  user: state => state.user
 }
 
 export const mutations = {
   setItems(state, { items }) {
     state.items = items
+  },
+  serUser(state, { user }) {
+    state.user = user
+    state.isLoggedIn = true
   }
 }
 
@@ -18,5 +26,20 @@ export const actions = {
       'https://qiita.com/api/v2/items?query=tag:nuxt.js'
     )
     commit('setItems', { items })
+  },
+
+  async login({ commit }, { id }) {
+    const user = await this.$axios.$get(`/users/${id}.json`)
+    if (!user.id) throw new Error('Invalid user')
+    commit('serUser', { user })
+  },
+
+  async register({ commit }, { id }) {
+    const payload = {}
+    payload[id] = { id }
+    await this.$axios.$patch(`/users.json`, payload)
+    const user = await this.$axios$get(`/users/${id}.json`)
+    if (!user.id) throw new Error('Invalid user')
+    commit('serUser', { user })
   }
 }
