@@ -1,7 +1,9 @@
 import Cookies from 'universal-cookie'
 
 export default ({ req, store }) => {
+  // nuxt-linkなどHistoryインターフェイスでページ遷移をした場合
   if (process.client) {
+    console.log('[auth.js] process.client: ', process.client)
     return
   }
 
@@ -9,8 +11,12 @@ export default ({ req, store }) => {
   //   return
   // }
 
-  const cookies = new Cookies(req.headers.cookies)
+  console.log(req.headers)
+
+  const cookies = new Cookies(req.headers.cookie)
+  console.log('[auth.js] cookies: ', cookies)
   const user = cookies.get('user')
+  console.log('[auth.js] user: ', user)
 
   if (user && user.id) {
     const { id, likes } = user
@@ -18,8 +24,8 @@ export default ({ req, store }) => {
     console.log('auth.js ~~ setUser')
   }
 
-  // if (!credential && route.path !== '/login') {
-  //   console.log('!credential && route.path === /login')
-  //   return redirect('/login')
+  // if (!user && route.path !== '/login') {
+  //   console.log('!user && route.path === /login')
+  //   // return redirect('/login')
   // }
 }

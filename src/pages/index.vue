@@ -1,6 +1,7 @@
 <template>
   <div>
     <Wrapper>
+      <a href="/login">aタグでリンク</a>
       <form class="form">
         <div class="form_item">
           <label for="username">User id</label>

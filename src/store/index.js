@@ -14,7 +14,7 @@ export const mutations = {
   setItems(state, { items }) {
     state.items = items
   },
-  serUser(state, { user }) {
+  setUser(state, { user }) {
     state.user = user
     state.isLoggedIn = true
   }
@@ -31,7 +31,7 @@ export const actions = {
   async login({ commit }, { id }) {
     const user = await this.$axios.$get(`/users/${id}.json`)
     if (!user.id) throw new Error('Invalid user')
-    commit('serUser', { user })
+    commit('setUser', { user })
   },
 
   async register({ commit }, { id }) {
@@ -40,6 +40,6 @@ export const actions = {
     await this.$axios.$patch(`/users.json`, payload)
     const user = await this.$axios$get(`/users/${id}.json`)
     if (!user.id) throw new Error('Invalid user')
-    commit('serUser', { user })
+    commit('setUser', { user })
   }
 }

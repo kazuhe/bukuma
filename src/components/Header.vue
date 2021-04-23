@@ -13,12 +13,17 @@
 .header {
   position: relative;
   border-bottom: 1px solid var(--color-border);
+  background: var(--color-background);
 
   &_inner {
     height: 50px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+  a {
+    color: #fff;
   }
 }
 </style>
