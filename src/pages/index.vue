@@ -23,6 +23,18 @@
           </button>
         </div>
       </form>
+
+      <div>
+        <section>
+          <h2>New bookmarks</h2>
+          <ul>
+            <li v-for="bookmark in bookmarks" :key="bookmark.id">
+              <h3>{{ bookmark.title }}</h3>
+              <p>{{ bookmark.user.id }}</p>
+            </li>
+          </ul>
+        </section>
+      </div>
     </Wrapper>
   </div>
 </template>
@@ -32,10 +44,13 @@ import { mapGetters, mapActions } from 'vuex'
 import Cookies from 'universal-cookie'
 
 export default {
-  asyncData({ redirect, store }) {
-    if (store.getters.user) {
-      redirect('/posts/')
-    }
+  async asyncData({ store }) {
+    // asyncData({ redirect, store }) {
+    // if (store.getters.user) {
+    //   redirect('/posts/')
+    // }
+
+    await store.dispatch('bookmarks/fetchBookmarks')
 
     return {
       isCreateMode: false,
@@ -55,10 +70,15 @@ export default {
     buttonText() {
       return this.isCreateMode ? 'Sign up' : 'Login'
     },
-    ...mapGetters(['user'])
+    ...mapGetters(['user']),
+    ...mapGetters('bookmarks', ['bookmarks'])
   },
 
   methods: {
+    handleClick(bookmark) {
+      this.$router.push(`/bookmarks/${bookmark.id}`)
+    },
+
     async handleClickSubmit() {
       const cookies = new Cookies()
       if (this.isCreateMode) {

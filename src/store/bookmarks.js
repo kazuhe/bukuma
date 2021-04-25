@@ -46,5 +46,21 @@ export const actions = {
       putData
     ])
     commit('addBookmarks', { bookmarks })
+  },
+
+  async fetchBookmarks({ commit }) {
+    const bookmarks = await this.$axios.$get(`/bookmarks.json`)
+    commit('clearBookmarks')
+    console.log(Object.entries(bookmarks))
+    Object.entries(bookmarks)
+      .reverse()
+      .forEach(([id, content]) => {
+        commit('addBookmarks', {
+          bookmarks: {
+            id,
+            ...content
+          }
+        })
+      })
   }
 }
