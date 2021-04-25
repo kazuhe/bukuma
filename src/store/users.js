@@ -1,30 +1,28 @@
 export const state = () => ({
-  list: [],
-  items: {}
+  users: []
 })
 
 export const getters = {
-  list: state => state.list,
-  items: state => state.items
+  users: state => state.users
 }
 
 export const mutations = {
-  setUsers(state, { user }) {
-    state.list[user.id] = user
+  addUser(state, { user }) {
+    state.users.push(user)
   },
-  setUsersItems(state, { items, user }) {
-    state.items[user.id] = items
+
+  addUserBookmark(state, { bookmark, user }) {
+    state.users[user.id].bookmarks.push(bookmark)
+  },
+
+  clearUserBookmarks(state, { user }) {
+    state.users[user.id] = []
   }
 }
 
 export const actions = {
   async fetchUser({ commit }, { id }) {
-    const [user, items] = await Promise.all([
-      this.$axios.$get(`https://qiita.com/api/v2/users/${id}`),
-      this.$axios.$get(`https://qiita.com/api/v2/items?query=user:${id}`)
-    ])
-
-    commit('setUsers', { user })
-    commit('setUsersItems', { items, user })
+    const user = await this.$axios.$get(`/users/${id}.json`)
+    commit('addUser', { user })
   }
 }

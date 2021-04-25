@@ -1,19 +1,37 @@
 <template>
-  <div>
-    <p>username: {{ username }}</p>
-    <img :src="user.profile_image_url" width="120" alt="" />
-    <ul>
-      <li v-for="item in items" :key="item.id">
-        <h2>
-          {{ item.title }} <span>by </span>
-          <nuxt-link :to="`/${item.user.id}`">
-            {{ item.user.id }}
-          </nuxt-link>
-        </h2>
-        <div>{{ item.body.slice(0, 130) }}...</div>
-        <a :href="item.url">{{ item.url }}</a>
-      </li>
-    </ul>
+  <div class="users">
+    <div class="users_header">
+      <Wrapper>
+        <div class="profile">
+          <img
+            src="https://d36jcksde1wxzq.cloudfront.net/saas-mega/blueFingerprint.png"
+            width="120"
+            alt=""
+          />
+          <div class="profile_info">
+            <h2>{{ user.id }}</h2>
+          </div>
+        </div>
+      </Wrapper>
+    </div>
+    <div class="users_body">
+      <Wrapper>
+        <div class="bookmarks">
+          <ul class="bookmarks_list">
+            <li v-for="item in user.bookmarks" :key="item.id">
+              <h2>
+                {{ item.title }}
+                <!-- <nuxt-link :to="`/${item.user.id}`">
+                  {{ item.user.id }}
+                </nuxt-link> -->
+              </h2>
+              <!-- <div>{{ item.body.slice(0, 130) }}...</div>
+              <a :href="item.url">{{ item.url }}</a> -->
+            </li>
+          </ul>
+        </div>
+      </Wrapper>
+    </div>
   </div>
 </template>
 
@@ -22,7 +40,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   async asyncData({ route, store, redirect }) {
-    if (store.getters['users/list'][route.params.users]) {
+    if (store.getters['users/users'][route.params.users]) {
       return
     }
     try {
@@ -42,22 +60,72 @@ export default {
 
   head() {
     return {
-      title: `${this.user.id}の記事一覧`
+      title: `${this.users.id}の記事一覧`
     }
   },
 
   computed: {
     user() {
-      return this.users[this.$route.params.users]
+      const user = this.users.find(u => u.id === this.$route.params.users)
+      return user
     },
-    items() {
-      return this.userItems[this.$route.params.users] || []
+
+    bookmarks() {
+      return this.users
     },
 
     ...mapGetters({
-      users: 'users/list',
-      userItems: 'users/items'
+      users: 'users/users'
     })
   }
 }
 </script>
+
+<style lang="scss">
+.users {
+  &_header {
+    margin: 30px 0 0;
+    padding: 0 0 30px;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  &_body {
+    background: var(--color-background-light);
+    padding: 50px 0;
+  }
+}
+
+.profile {
+  display: flex;
+
+  img {
+    width: 80px;
+    display: block;
+  }
+
+  &_info {
+    margin: 0 0 0 50px;
+
+    h2 {
+      font-size: 20px;
+      font-weight: bold;
+    }
+  }
+}
+
+.bookmarks {
+  &_list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 2em 1.8em;
+
+    li {
+      background-color: #fff;
+      box-shadow: 7px 7px 15px rgb(55 84 170 / 15%), -7px -7px 20px #fff,
+        0 0 4px hsl(0deg 0% 100% / 20%);
+      border-radius: 5px;
+      padding: 15px;
+    }
+  }
+}
+</style>
