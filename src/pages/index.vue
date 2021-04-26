@@ -29,7 +29,7 @@
           <h2>New bookmarks</h2>
           <ul>
             <li v-for="bookmark in bookmarks" :key="bookmark.id">
-              <h3>{{ bookmark.title }}</h3>
+              <Card :comment="bookmark.comment" :url="bookmark.url" />
               <p>{{ bookmark.user.id }}</p>
             </li>
           </ul>

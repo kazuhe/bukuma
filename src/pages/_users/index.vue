@@ -19,14 +19,7 @@
         <div class="bookmarks">
           <ul class="bookmarks_list">
             <li v-for="item in user.bookmarks" :key="item.id">
-              <h2>
-                {{ item.title }}
-                <!-- <nuxt-link :to="`/${item.user.id}`">
-                  {{ item.user.id }}
-                </nuxt-link> -->
-              </h2>
-              <!-- <div>{{ item.body.slice(0, 130) }}...</div>
-              <a :href="item.url">{{ item.url }}</a> -->
+              <Card :comment="item.comment" :url="item.url" />
             </li>
           </ul>
         </div>
@@ -118,14 +111,6 @@ export default {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 2em 1.8em;
-
-    li {
-      background-color: #fff;
-      box-shadow: 7px 7px 15px rgb(55 84 170 / 15%), -7px -7px 20px #fff,
-        0 0 4px hsl(0deg 0% 100% / 20%);
-      border-radius: 5px;
-      padding: 15px;
-    }
   }
 }
 </style>

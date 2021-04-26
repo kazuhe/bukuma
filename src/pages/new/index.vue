@@ -4,18 +4,23 @@
       <h2>Create a new bookmark</h2>
       <form class="form">
         <div class="form_item">
-          <label for="title">Title</label>
+          <label for="comment">Comment</label>
           <input
-            id="title"
-            v-model="formData.title"
+            id="comment"
+            v-model="formData.comment"
             type="text"
-            placeholder="Title"
-            autocomplete="title"
+            placeholder="comment"
           />
         </div>
         <div class="form_item">
-          <label for="body">Text</label>
-          <input id="body" v-model="formData.body" type="textarea" />
+          <label for="url">URL</label>
+          <input
+            id="url"
+            v-model="formData.url"
+            placeholder="https://"
+            type="text"
+            autocomplete="url"
+          />
         </div>
         <div class="button">
           <button type="button" @click="publish">登録</button>
@@ -35,8 +40,8 @@ export default {
     }
     return {
       formData: {
-        title: '',
-        body: ''
+        comment: '',
+        url: ''
       }
     }
   },
