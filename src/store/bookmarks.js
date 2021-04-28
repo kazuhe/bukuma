@@ -13,9 +13,9 @@ export const mutations = {
     state.bookmarks.push(bookmarks)
   },
 
-  updateBookmarks(state, { bookmarks }) {
+  updateBookmarks(state, { bookmark }) {
     state.bookmarks = state.bookmarks.map(p =>
-      p.id === bookmarks.id ? bookmarks : p
+      p.id === bookmark.id ? bookmark : p
     )
   },
 
@@ -62,5 +62,26 @@ export const actions = {
           }
         })
       })
+  },
+
+  async addFlagLogToUser({ commit }, { user, bookmarkId }) {
+    // TODO deepコピーを回避
+    const isFlag = {
+      bookmark_id: bookmarkId,
+      flagged_at: dayjs().format()
+    }
+
+    // TODO vuexの'state.bookmarks'を参照
+    const userBookmarks = await this.$axios.$get(`/users/${user.id}.json`)
+    const newUserBookmarks = userBookmarks.bookmarks.map(b => {
+      if (b.id === bookmarkId) {
+        console.log(b)
+        b.isFlag = isFlag
+        // commit('updateBookmarks', { b })
+      }
+      return b
+    })
+    userBookmarks.bookmarks = newUserBookmarks
+    await this.$axios.$put(`users/${user.id}.json`, userBookmarks)
   }
 }

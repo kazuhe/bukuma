@@ -19,7 +19,13 @@
         <div class="bookmarks">
           <ul class="bookmarks_list">
             <li v-for="item in user.bookmarks" :key="item.id">
-              <Card :comment="item.comment" :url="item.url" />
+              {{ item }}
+              <Card
+                :id="item.id"
+                :comment="item.comment"
+                :url="item.url"
+                :is-flag="item.isFlag !== undefined"
+              />
             </li>
           </ul>
         </div>
@@ -33,6 +39,8 @@ import { mapGetters } from 'vuex'
 
 export default {
   async asyncData({ route, store, redirect }) {
+    // await store.dispatch('bookmarks/fetchBookmarks')
+
     if (store.getters['users/users'][route.params.users]) {
       return
     }
