@@ -1,6 +1,13 @@
 # bukuma
 bookmarks app
 
+# Test
+
+## テストの対象範囲
+* Vuexデータストア
+* 挙動が複雑なVueコンポーネント
+* フレームワークに依存しないレイヤ
+
 # Entity
 
 ## bookmarks
