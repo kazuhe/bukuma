@@ -1,7 +1,7 @@
-const Vuex = require('vuex')
-const { createLocalVue } = require('@vue/test-utils')
-const cloneDeep = require('lodash.clonedeep')
-const index = require('./counter')
+import Vuex from 'vuex'
+import { createLocalVue } from '@vue/test-utils'
+import cloneDeep from 'lodash.clonedeep'
+import index from './counter'
 
 // メモリ上に仮想的なVueインスタンスを生成
 const localVue = createLocalVue()
