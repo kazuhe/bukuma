@@ -1,7 +1,7 @@
 import Vuex from 'vuex'
 import { createLocalVue } from '@vue/test-utils'
 import cloneDeep from 'lodash.clonedeep'
-import index from './counter'
+import index from '~/store/counter'
 
 // メモリ上に仮想的なVueインスタンスを生成
 const localVue = createLocalVue()
