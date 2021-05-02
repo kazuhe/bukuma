@@ -2,6 +2,7 @@
   <div>
     <Wrapper>
       <a href="/login">aタグでリンク</a>
+      <app-toggle-button />
       <form class="form">
         <div class="form_item">
           <label for="username">User id</label>
