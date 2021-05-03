@@ -5,6 +5,7 @@ import index from '~/store/counter'
 
 // メモリ上に仮想的なVueインスタンスを生成
 const localVue = createLocalVue()
+// vuexプラグインを使用する宣言
 localVue.use(Vuex)
 
 describe('store/counter.js', () => {
