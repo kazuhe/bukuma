@@ -2,19 +2,26 @@ import Vuex from 'vuex'
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import cloneDeep from 'lodash.clonedeep'
 import counterPage from '~/pages/counter'
-import counter from '~/store/counter'
+import counterStore from '~/store/counter'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-describe('StringComp.vue', () => {
+describe('pages/counter.vue', () => {
   let store
-  const modules = {}
-  counter.namespaced = true
 
   beforeEach(() => {
-    modules.modules = { counter }
-    store = new Vuex.Store(cloneDeep(modules))
+    // どのテストでも確実に汚染されていないストアを使うためにモジュールを複製
+    const clone = cloneDeep(counterStore)
+    // モジュールを名前空間として登録する為の設定
+    clone.namespaced = true
+
+    // モックのVuexインスタンスを生成
+    store = new Vuex.Store({
+      modules: {
+        counter: clone
+      }
+    })
   })
 
   it('カウンターをクリックした時に、カウントの値が「+1」される', () => {
